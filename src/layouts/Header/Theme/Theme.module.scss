@@ -1,0 +1,44 @@
+.theme {
+  &.dark & {
+    &__checkbox {
+      span {
+        left: 55px;
+      }
+    }
+  }
+  &__checkbox {
+    position: relative;
+
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+
+    transition: all 0.3s ease-in-out;
+
+    width: 100px;
+    height: 38px;
+    border-radius: 40px;
+    background-color: #d9d9d9;
+    padding: 4px 13px;
+
+    margin-bottom: 10px;
+
+    span {
+      position: absolute;
+      left: 10px;
+      display: block;
+      width: 30px;
+      height: 30px;
+      background-color: #111111;
+      border-radius: 100%;
+
+      transition: all 0.3s ease-in-out;
+    }
+  }
+
+  &__text {
+    font-weight: 800;
+    font-size: 18px;
+  }
+}

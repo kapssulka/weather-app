@@ -1,0 +1,29 @@
+.wrapper {
+  text-align: center;
+  padding: 12px 30px 20px;
+
+  background-color: #373636;
+  border-radius: 30px;
+
+  svg {
+    margin-bottom: 15px;
+  }
+
+  div {
+    &:not(:last-child) {
+      margin-bottom: 15px;
+    }
+  }
+}
+
+.time {
+  font-size: 24px;
+}
+
+.degreesCelsius {
+  font-size: 20px;
+}
+
+.windSpeed {
+  font-size: 20px;
+}
