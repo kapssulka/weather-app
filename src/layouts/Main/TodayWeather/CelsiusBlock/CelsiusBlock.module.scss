@@ -1,0 +1,32 @@
+.wrapper {
+  padding-top: 30px;
+}
+
+.degreesCelsius {
+  font-size: 80px;
+  background: #fff;
+  background: linear-gradient(
+    -99deg,
+    rgba(56, 56, 56, 0.8463760504201681) 0%,
+    #ffffff 100%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.feelsLike {
+  font-size: 20px;
+  font-weight: 600;
+  span {
+    &:last-child {
+      font-size: 32px;
+      margin-left: 9px;
+    }
+  }
+}
+
+.sunrise {
+  margin-top: 34px;
+  margin-bottom: 20px;
+}

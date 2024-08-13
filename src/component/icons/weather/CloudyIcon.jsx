@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function MistIcon({ width = 60, height = 60 }) {
+export default function CloudyIcon({ width = 60, height = 60 }) {
   return (
     <svg
       width={width}
@@ -8,7 +8,7 @@ export default function MistIcon({ width = 60, height = 60 }) {
       viewBox={`0 0 ${width} ${height}`}
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      xmlns:xlink="http://www.w3.org/1999/xlink"
+      xlink="http://www.w3.org/1999/xlink"
     >
       <rect width={width} height={height} fill="url(#pattern0_12_390)" />
       <defs>

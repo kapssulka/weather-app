@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function CloudsIcon({ width = 60, height = 60 }) {
+export default function OvercastIcon({ width = 60, height = 60 }) {
   return (
     <svg
       width={width}

@@ -1,7 +1,11 @@
 import classes from "./Sun.module.scss";
 import cn from "classnames";
 
-export default function Sun({ type = "sunrise", className = "" }) {
+export default function Sun({
+  type = "sunrise",
+  className = "",
+  time = "00:00",
+}) {
   let urlImg;
   let textType;
   if (type === "sunrise") {
@@ -18,9 +22,7 @@ export default function Sun({ type = "sunrise", className = "" }) {
       <img src={urlImg} alt={type} />
       <div className={classes.text}>
         <div className={classes.type}>{textType}</div>
-        <div className={classes.time}>
-          <span>06:37</span> AM
-        </div>
+        <div className={classes.time}>{time}</div>
       </div>
     </div>
   );
