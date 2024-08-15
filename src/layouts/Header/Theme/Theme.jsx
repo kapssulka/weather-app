@@ -19,7 +19,9 @@ export default function Theme() {
         <span></span>
       </div>
 
-      <div className={classes.theme__text}>Dark Mode</div>
+      <div className={classes.theme__text}>
+        {darkThema ? "Dark Mode" : "Light Mode"}
+      </div>
     </div>
   );
 }

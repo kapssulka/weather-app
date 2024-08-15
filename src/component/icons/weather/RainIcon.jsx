@@ -1,15 +1,15 @@
 import React from "react";
 
-export default function RainIcon({ width = 60, height = 60 }) {
+export default function RainIcon({ size = 60 }) {
   return (
     <svg
-      width={width}
-      height={height}
-      viewBox={`0 0 ${width} ${height}`}
+      width={size}
+      height={size}
+      viewBox={`0 0 ${size} ${size}`}
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <rect width={width} height={height} fill="url(#pattern0_12_393)" />
+      <rect width={size} height={size} fill="url(#pattern0_12_393)" />
       <defs>
         <pattern
           id="pattern0_12_393"

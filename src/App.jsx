@@ -4,19 +4,23 @@ import Layout from "./Layout";
 import Header from "./layouts/Header/Header";
 import Main from "./layouts/Main/Main";
 
-import { formatTodayWeatherDate } from "./helpers/formatHelpers";
+import {
+  formatDaysForecastDate,
+  formatHourlyForecastDate,
+  formatTodayWeatherDate,
+} from "./helpers/formatHelpers";
 
 const APIkey = "c228931bb8313f4f70954b0367327206";
 
 export const weatherContext = createContext(null);
 
 function App() {
-  const [weatherDataList, setWeatherDataList] = useState([]);
-  const [cityData, setCityData] = useState([]);
-  const [cityName, setSityName] = useState("London");
+  const [cityName, setSityName] = useState("Bishkek");
 
   // TodayWaether Date
   const [dateForTodayWaether, setDateForTodayWaether] = useState([]);
+  const [dateForDaysForecast, setDateForDaysForecast] = useState([]);
+  const [dateForHourlyForecast, setDateForHourlyForecast] = useState([]);
 
   useEffect(() => {
     async function fetchData() {
@@ -25,20 +29,22 @@ function App() {
       const response = await fetch(url);
       const data = await response.json();
 
-      const limitedData = data.list.slice(0, 6);
-
-      setWeatherDataList(limitedData);
-      setCityData(data.city);
-
       // форматируем данные
       setDateForTodayWaether(formatTodayWeatherDate(data));
+      setDateForDaysForecast(formatDaysForecastDate(data));
+      setDateForHourlyForecast(formatHourlyForecastDate(data));
     }
     if (cityName) fetchData();
   }, [cityName]);
 
   return (
     <weatherContext.Provider
-      value={{ dateForTodayWaether, weatherDataList, cityName, cityData }}
+      value={{
+        dateForTodayWaether,
+        dateForDaysForecast,
+        dateForHourlyForecast,
+        cityName,
+      }}
     >
       <Layout>
         <Header />

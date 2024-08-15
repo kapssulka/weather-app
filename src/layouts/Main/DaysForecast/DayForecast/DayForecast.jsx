@@ -1,22 +1,20 @@
+import WeatherState from "../../../../component/WeatherState/WeatherState";
 import classes from "./DayForecast.module.scss";
-import RainIcon from "/src/component/icons/weather/RainIcon";
-import SunnyIcon from "/src/component/icons/weather/SunnyIcon";
 
 export default function DayForecast({
-  weather = "sunny",
+  weatherState = "",
   degreesCelsius = "",
   dayOfTheWeek = "",
 }) {
   return (
     <div className={classes.wrapper}>
       <div className={classes.leftBlock}>
-        {weather === "rain" && <RainIcon />}
-        {weather === "sunny" && <SunnyIcon />}
+        <WeatherState weatherState={weatherState} />
 
-        <div className={classes.celsius}>{degreesCelsius}</div>
+        <div className={classes.celsius}>{degreesCelsius}°C</div>
       </div>
 
-      <div className={classes.dayOfTheWeek}>{dayOfTheWeek}</div>
+      <div className={classes.dayOfTheWeek}>{dayOfTheWeek}, 1 Sep</div>
     </div>
   );
 }

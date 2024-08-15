@@ -16,7 +16,7 @@ export function getTimeFromUnix(unixTime) {
   return formattedTime;
 }
 
-// Data for TodayWeather block
+// Formatted Data for TodayWeather block
 export function formatTodayWeatherDate(data) {
   if (!data) return false;
 
@@ -34,12 +34,7 @@ export function formatTodayWeatherDate(data) {
   const clouds = todayDate.clouds.all || "";
   const rain = todayDate.rain ? true : false;
 
-  let weatherState;
-
-  if (clouds < 11) weatherState = "Sunny";
-  if (clouds > 10 && clouds < 75) weatherState = "Cloudy";
-  if (clouds > 74) weatherState = "Overcast";
-  if (rain) weatherState = "Rain";
+  const weatherState = setWeatherState(clouds, rain);
 
   return {
     temp,
@@ -47,11 +42,114 @@ export function formatTodayWeatherDate(data) {
     sunrise,
     sunset,
     sunset,
-    clouds,
     pressure,
     humidity,
     weatherState,
     windSpeed,
     windDeg,
   };
+}
+
+// Formatted Data for TodayWeather block
+export function formatDaysForecastDate(data) {
+  if (!data) return false;
+
+  const nextDaysWeather = filterWeatherData(data.list);
+
+  const formatDataNextDaysWeather = [];
+
+  for (let i = 0; i < nextDaysWeather.length; i++) {
+    const clouds = nextDaysWeather[i].clouds.all || "";
+    const rain = nextDaysWeather[i].rain ? true : false;
+
+    const unixTime = nextDaysWeather[i].dt * 1000;
+
+    const value = {
+      temp: Math.round(nextDaysWeather[i].main.temp),
+      date: getDayOfTheWeek(unixTime),
+      weatherState: setWeatherState(clouds, rain),
+    };
+
+    formatDataNextDaysWeather.push(value);
+  }
+
+  return formatDataNextDaysWeather;
+}
+
+// Formatted Data for HourlyForecast block
+export function formatHourlyForecastDate(data) {
+  if (!data) return false;
+
+  const todayWeatherdate = filterWeatherData(data.list, true);
+
+  const formatedTodayWeatherdate = [];
+
+  for (let i = 0; i < todayWeatherdate.length; i++) {
+    // console.log(todayWeatherdate[i]);
+    const date = todayWeatherdate[i].dt;
+    const temp = Math.round(todayWeatherdate[i].main.temp);
+    const windDeg = todayWeatherdate[i].wind.deg;
+    const windSpeed = Math.round(todayWeatherdate[i].wind.speed);
+
+    const clouds = todayWeatherdate[i].clouds.all || "";
+    const rain = todayWeatherdate[i].rain ? true : false;
+    const weatherState = setWeatherState(clouds, rain);
+
+    const value = { date, temp, windDeg, windSpeed, weatherState };
+
+    formatedTodayWeatherdate.push(value);
+  }
+
+  return formatedTodayWeatherdate;
+}
+
+// Helpers
+function setWeatherState(clouds = 0, rain = false) {
+  let weatherState;
+
+  if (clouds < 11) weatherState = "Sunny";
+  if (clouds > 10 && clouds < 75) weatherState = "Cloudy";
+  if (clouds > 74) weatherState = "Overcast";
+  if (rain) weatherState = "Rain";
+
+  return weatherState;
+}
+
+function filterWeatherData(data, onlyToday = false, maxDay = 5) {
+  // Брать ли в сортировку текущий день
+  const helpNum = onlyToday ? 0 : 1;
+
+  const dateToday = new Date().getUTCDate();
+
+  const nextDaysWeatherDate = [];
+
+  for (let i = dateToday + helpNum; i <= dateToday + maxDay; i++) {
+    let filterArr = data.filter(
+      (item) => new Date(item.dt * 1000).getUTCDate() === i
+    );
+
+    if (onlyToday) return filterArr;
+
+    const medianaIndex = Math.floor(filterArr.length / 2);
+    nextDaysWeatherDate.push(filterArr[medianaIndex]);
+    filterArr = [];
+  }
+
+  return nextDaysWeatherDate;
+}
+
+function getDayOfTheWeek(unixTime, value = "") {
+  const day = new Date(unixTime).getUTCDay();
+
+  const daysOfWeek = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+
+  return daysOfWeek[day];
 }
