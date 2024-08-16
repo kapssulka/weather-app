@@ -11,45 +11,18 @@ export default function HourlyForecast() {
       <h2 className={classes.title}>Hourly Forecast:</h2>
 
       <div className={classes.itemsWrapper}>
-        {dateForHourlyForecast.map((item, index) => (
-          <HourlyForecastItem
-            key={index}
-            windDeg={item.windDeg}
-            weatherState={item.weatherState}
-            temp={item.temp}
-            time="XX:XX"
-            windSpeed={item.windSpeed}
-          />
-        ))}
-
-        {/* <HourlyForecastItem
-          windDirection="left"
-          weather="sunny"
-          degreesCelsius="32°C"
-          time="15:00"
-          windSpeed="3km"
-        />
-        <HourlyForecastItem
-          windDirection="left"
-          weather="sunny"
-          degreesCelsius="28°C"
-          time="18:00"
-          windSpeed="3km"
-        />
-        <HourlyForecastItem
-          windDirection="left"
-          weather="sunny"
-          degreesCelsius="23°C"
-          time="21:00"
-          windSpeed="3km"
-        />
-        <HourlyForecastItem
-          windDirection="left"
-          weather="sunny"
-          degreesCelsius="18°C"
-          time="00:00"
-          windSpeed="3km"
-        /> */}
+        {dateForHourlyForecast.map((item, index) => {
+          return (
+            <HourlyForecastItem
+              key={index}
+              windDeg={item.windDeg}
+              weatherState={item.weatherState}
+              temp={item.temp}
+              unixTime={item.unixTime}
+              windSpeed={item.windSpeed}
+            />
+          );
+        })}
       </div>
     </div>
   );

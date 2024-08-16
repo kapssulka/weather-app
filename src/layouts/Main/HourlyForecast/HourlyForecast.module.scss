@@ -18,7 +18,8 @@
 .itemsWrapper {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
+  column-gap: 20px;
 
   width: 100%;
 }

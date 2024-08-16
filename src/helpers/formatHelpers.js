@@ -26,7 +26,7 @@ export function formatTodayWeatherDate(data) {
   const feelsLike = Math.round(todayDate.main["feels_like"]) || "";
   const sunrise = getTimeFromUnix(data.city.sunrise) || "";
   const sunset = getTimeFromUnix(data.city.sunset) || "";
-  const windSpeed = Math.round(todayDate.wind.speed) + "km/h" || "";
+  const windSpeed = Math.round(todayDate.wind.speed) + "m/s" || "";
   const windDeg = todayDate.wind.deg || "";
   const pressure = todayDate.main.pressure + "hPa" || "";
   const humidity = todayDate.main.humidity + "%" || "";
@@ -85,8 +85,7 @@ export function formatHourlyForecastDate(data) {
   const formatedTodayWeatherdate = [];
 
   for (let i = 0; i < todayWeatherdate.length; i++) {
-    // console.log(todayWeatherdate[i]);
-    const date = todayWeatherdate[i].dt;
+    const unixTime = extractTime(todayWeatherdate[i].dt_txt);
     const temp = Math.round(todayWeatherdate[i].main.temp);
     const windDeg = todayWeatherdate[i].wind.deg;
     const windSpeed = Math.round(todayWeatherdate[i].wind.speed);
@@ -95,7 +94,7 @@ export function formatHourlyForecastDate(data) {
     const rain = todayWeatherdate[i].rain ? true : false;
     const weatherState = setWeatherState(clouds, rain);
 
-    const value = { date, temp, windDeg, windSpeed, weatherState };
+    const value = { unixTime, temp, windDeg, windSpeed, weatherState };
 
     formatedTodayWeatherdate.push(value);
   }
@@ -103,7 +102,12 @@ export function formatHourlyForecastDate(data) {
   return formatedTodayWeatherdate;
 }
 
-// Helpers
+// Format search request
+export function formatSearchRequest(string) {
+  return string;
+}
+
+//? Helpers
 function setWeatherState(clouds = 0, rain = false) {
   let weatherState;
 
@@ -138,7 +142,7 @@ function filterWeatherData(data, onlyToday = false, maxDay = 5) {
   return nextDaysWeatherDate;
 }
 
-function getDayOfTheWeek(unixTime, value = "") {
+function getDayOfTheWeek(unixTime) {
   const day = new Date(unixTime).getUTCDay();
 
   const daysOfWeek = [
@@ -152,4 +156,13 @@ function getDayOfTheWeek(unixTime, value = "") {
   ];
 
   return daysOfWeek[day];
+}
+
+// Format time
+function extractTime(date) {
+  // Используем регулярное выражение для извлечения времени
+  const timeMatch = date.match(/\d{2}:\d{2}/);
+
+  if (timeMatch) return timeMatch[0];
+  return "XX:XX";
 }
