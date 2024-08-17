@@ -1,10 +1,13 @@
-import { useContext, useEffect, useState } from "react";
 import classes from "./TimeBlock.module.scss";
+
+import { useContext, useEffect, useState } from "react";
 import { weatherContext } from "../../../App";
 import { getDateByCity, getTimeByCity } from "../../../helpers/workWithDate";
 
+import cn from "classnames";
+
 export default function TimeBlock() {
-  const { cityName } = useContext(weatherContext);
+  const { cityName, darkTheme } = useContext(weatherContext);
 
   const [time, setTime] = useState(getTimeByCity(cityName));
 
@@ -19,7 +22,11 @@ export default function TimeBlock() {
   }, [cityName, time]);
 
   return (
-    <div className={classes.timeWrapper}>
+    <div
+      className={cn(classes.timeWrapper, {
+        [classes.dark]: darkTheme,
+      })}
+    >
       <div className={classes.city}>{cityName}</div>
       <div className={classes.time}>{time}</div>
       <div className={classes.date}>{date}</div>

@@ -4,15 +4,27 @@
 
 .degreesCelsius {
   font-size: 80px;
-  background: #fff;
   background: linear-gradient(
-    -99deg,
-    rgba(56, 56, 56, 0.8463760504201681) 0%,
-    #ffffff 100%
+    109deg,
+    rgba(56, 56, 56, 0.8463760504201681) -10%,
+    #ffffff 120%
   );
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+
+  &.dark {
+    background: #fff;
+    background: linear-gradient(
+      -109deg,
+      rgba(56, 56, 56, 0.8463760504201681) -10%,
+      #ffffff 120%
+    );
+
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
 }
 
 .feelsLike {

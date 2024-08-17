@@ -1,26 +1,29 @@
 import classes from "./Theme.module.scss";
 
-import { useState } from "react";
+import { useContext } from "react";
 import cn from "classnames";
+import { weatherContext } from "../../../App";
 
 export default function Theme() {
-  const [darkThema, setDarkThema] = useState(false);
+  const { darkTheme, setDarkTheme } = useContext(weatherContext);
+
+  const handleClick = (e) => {
+    localStorage.setItem("isDark", !darkTheme);
+    setDarkTheme((prev) => !prev);
+  };
 
   return (
     <div
       className={cn(classes.theme, {
-        [classes.dark]: darkThema,
+        [classes.dark]: darkTheme,
       })}
     >
-      <div
-        onClick={() => setDarkThema((prev) => !prev)}
-        className={classes.theme__checkbox}
-      >
+      <div onClick={handleClick} className={classes.theme__checkbox}>
         <span></span>
       </div>
 
       <div className={classes.theme__text}>
-        {darkThema ? "Dark Mode" : "Light Mode"}
+        {darkTheme ? "Dark Mode" : "Light Mode"}
       </div>
     </div>
   );

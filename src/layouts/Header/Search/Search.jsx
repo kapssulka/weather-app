@@ -1,26 +1,23 @@
-import { useContext, useState } from "react";
 import classes from "./Search.module.scss";
+import { useContext, useState } from "react";
 import { weatherContext } from "../../../App";
 import { TbWorldSearch } from "react-icons/tb";
+import cn from "classnames";
 
 export default function Search() {
-  const { setCityName, setCitysNames, citysNames, setQuery } =
+  const { darkTheme, setCityName, setCitysNames, citysNames, setQuery } =
     useContext(weatherContext);
 
   const [searchText, setSearchText] = useState("");
 
   const handleClickSearch = (e) => {
-    setCityName("");
+    setCityName(searchText.trim());
     setSearchText("");
   };
 
   const handleClickCity = (city) => {
     setCityName(city);
     setSearchText("");
-  };
-
-  const checkSearchCitys = () => {
-    return citysNames && searchText ? true : false;
   };
 
   const handleChange = (e) => {
@@ -32,22 +29,29 @@ export default function Search() {
     }
   };
 
+  function checkSearchCitys() {
+    return citysNames.length > 0 && searchText ? true : false;
+  }
+
   return (
     <div className={classes.wrapper}>
       <input
         onChange={handleChange}
         value={searchText}
         placeholder="Search for your preffered city..."
-        className={classes.input}
+        className={cn(classes.input, {
+          [classes.input_dark]: darkTheme,
+        })}
         type="text"
       />
 
-      <button disabled={!searchText ? true : false} className={classes.search}>
-        <TbWorldSearch
-          onClick={handleClickSearch}
-          className={classes.searchIcon}
-          size={40}
-        />
+      <button
+        disabled={!searchText ? true : false}
+        className={cn(classes.search, {
+          [classes.search_dark]: darkTheme,
+        })}
+      >
+        <TbWorldSearch onClick={handleClickSearch} size={40} />
       </button>
 
       {checkSearchCitys() && (

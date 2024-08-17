@@ -1,9 +1,19 @@
 .wrapper {
   text-align: center;
   padding: 15px 40px 20px;
+  background-color: #ffffff;
 
-  background-color: #373636;
   border-radius: 30px;
+  background: linear-gradient(161deg, #f5c38d -80%, #f6fad9 100%);
+
+  &:nth-last-child(1),
+  &:nth-last-child(2) {
+    background: linear-gradient(161deg, #443d64 -80%, #e2e2e2 100%);
+  }
+
+  &.dark {
+    background: #373636;
+  }
 
   svg {
     margin-bottom: 15px;

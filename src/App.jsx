@@ -17,7 +17,9 @@ const APIkey = "c228931bb8313f4f70954b0367327206";
 export const weatherContext = createContext(null);
 
 function App() {
-  const [cityName, setCityName] = useState("");
+  const [darkTheme, setDarkTheme] = useState(false);
+
+  const [cityName, setCityName] = useState("London");
   const [query, setQuery] = useState("");
   const [error, setError] = useState("");
   const [citysNames, setCitysNames] = useState([]);
@@ -27,6 +29,14 @@ function App() {
   const [dateForDaysForecast, setDateForDaysForecast] = useState([]);
   const [dateForHourlyForecast, setDateForHourlyForecast] = useState([]);
 
+  useEffect(() => {
+    if (localStorage.getItem("isDark")) {
+      const isDark = JSON.parse(localStorage.getItem("isDark"));
+      setDarkTheme(isDark);
+    }
+  }, []);
+
+  // Search Date
   useEffect(() => {
     const fetchData = async () => {
       const url = `https://nominatim.openstreetmap.org/search?q=${query}&format=json&addressdetails=1&limit=5&accept-language=en&class=place&type=city`;
@@ -40,6 +50,7 @@ function App() {
     fetchData();
   }, [query]);
 
+  // Weather Date
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -78,16 +89,19 @@ function App() {
         setQuery,
         citysNames,
         setCitysNames,
-        citysNames,
+        darkTheme,
+        setDarkTheme,
       }}
     >
       <Layout>
         <Header />
 
         {!error && <Main />}
+
         {error === "Incorrect data" && (
           <ErrorComponent>Incorrect city name!</ErrorComponent>
         )}
+
         {error === "empty" && (
           <ErrorComponent>
             Enter a city name or define a location!

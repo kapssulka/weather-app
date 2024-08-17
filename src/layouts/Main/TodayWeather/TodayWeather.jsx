@@ -7,8 +7,10 @@ import CelsiusBlock from "./CelsiusBlock/CelsiusBlock";
 import WeatherStateBlock from "./WeatherStateBlock/WeatherStateBlock";
 import OtherInfoBlock from "./OtherInfoBlock/OtherInfoBlock";
 
+import cn from "classnames";
+
 export default function TodayWeather() {
-  const { dateForTodayWaether } = useContext(weatherContext);
+  const { dateForTodayWaether, darkTheme } = useContext(weatherContext);
   const {
     temp,
     feelsLike,
@@ -21,8 +23,13 @@ export default function TodayWeather() {
   } = dateForTodayWaether;
 
   return (
-    <div className={classes.todayWrapper}>
+    <div
+      className={cn(classes.todayWrapper, {
+        [classes.dark]: darkTheme,
+      })}
+    >
       <CelsiusBlock
+        darkTheme={darkTheme}
         temp={temp}
         feelsLike={feelsLike}
         sunrise={sunrise}

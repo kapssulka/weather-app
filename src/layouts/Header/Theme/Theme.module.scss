@@ -6,6 +6,10 @@
         left: 55px;
       }
     }
+
+    &__text {
+      color: #d9d9d9;
+    }
   }
   &__checkbox {
     position: relative;
@@ -21,6 +25,8 @@
     height: 38px;
     border-radius: 40px;
     background-color: #d9d9d9;
+    border: 1px solid rgba($color: #000000, $alpha: 0.2);
+
     padding: 4px 13px;
 
     margin-bottom: 10px;
@@ -41,5 +47,6 @@
   &__text {
     font-weight: 800;
     font-size: 18px;
+    color: #111111;
   }
 }

@@ -1,8 +1,9 @@
+@use "/src/vars.scss" as *;
 *,
 *::before,
 *::after {
   box-sizing: border-box;
-  color: white;
+  color: inherit;
 }
 
 body {
@@ -10,16 +11,27 @@ body {
   font-weight: 700;
   font-style: normal;
   min-height: 100vh;
-
-  background: rgb(56, 56, 56);
-  background: linear-gradient(
-    155deg,
-    rgba(56, 56, 56, 0.8463760504201681) 31%,
-    rgba(30, 30, 30, 1) 100%
-  );
 }
 
-.wrapper {
+.container {
   max-width: 80%;
   margin: 0 auto;
+}
+.wrapper {
+  transition: all 0.2s;
+
+  min-height: 100vh;
+  width: 100%;
+  @include gradient-bg;
+
+  &.dark {
+    transition: all 0.2s;
+    background: rgb(56, 56, 56);
+
+    background: linear-gradient(
+      155deg,
+      rgba(56, 56, 56, 0.8463760504201681) 31%,
+      rgba(30, 30, 30, 1) 100%
+    );
+  }
 }

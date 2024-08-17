@@ -1,13 +1,20 @@
-import { useContext } from "react";
 import classes from "./HourlyForecast.module.scss";
+
+import { useContext } from "react";
 import HourlyForecastItem from "./HourlyForecastItem/HourlyForecastItem";
 import { weatherContext } from "../../../App";
 
+import cn from "classnames";
+
 export default function HourlyForecast() {
-  const { dateForHourlyForecast } = useContext(weatherContext);
+  const { dateForHourlyForecast, darkTheme } = useContext(weatherContext);
 
   return (
-    <div className={classes.wrapper}>
+    <div
+      className={cn(classes.wrapper, {
+        [classes.dark]: darkTheme,
+      })}
+    >
       <h2 className={classes.title}>Hourly Forecast:</h2>
 
       <div className={classes.itemsWrapper}>

@@ -1,3 +1,5 @@
+@use "/src/vars.scss" as *;
+
 .todayWrapper {
   display: flex;
   justify-content: space-between;
@@ -8,13 +10,9 @@
 
   padding: 0 30px 30px;
 
-  box-shadow: 11px 11px 5px 1px #00000087;
-  background-color: #5c5c5c;
+  @include colors-bg;
 
-  background: #fff;
-  background: linear-gradient(
-    99deg,
-    #5c5c5c 50%,
-    rgba(218, 217, 217, 0.4) 100%
-  );
+  &.dark {
+    @include colors-bg-dark;
+  }
 }

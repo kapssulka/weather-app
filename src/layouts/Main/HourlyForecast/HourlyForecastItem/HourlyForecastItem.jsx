@@ -1,6 +1,11 @@
 import classes from "./HourlyForecastItem.module.scss";
+
 import WindIconLeft from "../../../../component/icons/wind/WindIconLeft";
 import WeatherState from "../../../../component/WeatherState/WeatherState";
+
+import cn from "classnames";
+import { useContext } from "react";
+import { weatherContext } from "../../../../App";
 
 export default function HourlyForecastItem({
   weatherState = "",
@@ -9,8 +14,13 @@ export default function HourlyForecastItem({
   unixTime = "",
   windDeg = "",
 }) {
+  const { darkTheme } = useContext(weatherContext);
   return (
-    <div className={classes.wrapper}>
+    <div
+      className={cn(classes.wrapper, {
+        [classes.dark]: darkTheme,
+      })}
+    >
       <div className={classes.time}>{unixTime}</div>
       <WeatherState size={80} weatherState={weatherState} />
 
@@ -18,7 +28,7 @@ export default function HourlyForecastItem({
 
       {windDeg && <WindIconLeft />}
 
-      <div className={classes.windSpeed}>{windSpeed}km</div>
+      <div className={classes.windSpeed}>{windSpeed}m/s</div>
     </div>
   );
 }

@@ -1,5 +1,6 @@
-import LocationIcon from "../../../component/icons/LocationIcon";
 import classes from "./CurrentLocation.module.scss";
+
+import LocationIcon from "../../../component/icons/LocationIcon";
 
 export default function CurrentLocation() {
   return (

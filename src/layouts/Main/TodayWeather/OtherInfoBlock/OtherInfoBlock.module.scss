@@ -1,10 +1,22 @@
 .wrapper {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  // grid-template-columns: 1fr 1fr;
+  grid-template-areas:
+    "Humidity Wind"
+    "Pressure Pressure";
   align-items: center;
   max-width: 247px;
   width: 100%;
   gap: 15px;
 
   padding-top: 30px;
+}
+.humidity {
+  grid-area: Humidity;
+}
+.wind {
+  grid-area: Wind;
+}
+.pressure {
+  grid-area: Pressure;
 }

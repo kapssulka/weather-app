@@ -1,5 +1,18 @@
-import React from "react";
+import React, { useContext } from "react";
+import { weatherContext } from "./App";
+
+import cn from "classnames";
 
 export default function Layout({ children }) {
-  return <div className="wrapper">{children}</div>;
+  const { darkTheme } = useContext(weatherContext);
+
+  return (
+    <div
+      className={cn("wrapper", {
+        ["dark"]: darkTheme,
+      })}
+    >
+      <div className="container">{children}</div>
+    </div>
+  );
 }
