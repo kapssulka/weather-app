@@ -5,9 +5,12 @@ import { weatherContext } from "../../../App";
 import { getDateByCity, getTimeByCity } from "../../../helpers/workWithDate";
 
 import cn from "classnames";
+import { useSelector } from "react-redux";
 
 export default function TimeBlock() {
-  const { cityName, darkTheme } = useContext(weatherContext);
+  const { darkTheme } = useContext(weatherContext);
+
+  const cityName = useSelector((state) => state.search.cityName);
 
   const [time, setTime] = useState(getTimeByCity(cityName));
 

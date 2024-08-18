@@ -5,10 +5,13 @@ import HourlyForecastItem from "./HourlyForecastItem/HourlyForecastItem";
 import { weatherContext } from "../../../App";
 
 import cn from "classnames";
+import { useSelector } from "react-redux";
 
 export default function HourlyForecast() {
-  const { dateForHourlyForecast, darkTheme } = useContext(weatherContext);
-
+  const { darkTheme } = useContext(weatherContext);
+  const dateForHourlyForecast = useSelector(
+    (state) => state.weather.hourlyForecast
+  );
   return (
     <div
       className={cn(classes.wrapper, {

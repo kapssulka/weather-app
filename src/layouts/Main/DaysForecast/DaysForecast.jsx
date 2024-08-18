@@ -4,10 +4,13 @@ import { useContext } from "react";
 import DayForecast from "./DayForecast/DayForecast";
 import { weatherContext } from "../../../App";
 import cn from "classnames";
+import { useSelector } from "react-redux";
 
 export default function DaysForecast() {
-  const { dateForDaysForecast, darkTheme } = useContext(weatherContext);
-
+  const { darkTheme } = useContext(weatherContext);
+  const dateForDaysForecast = useSelector(
+    (state) => state.weather.forecastForDays
+  );
   return (
     <div
       className={cn(classes.wrapper, {

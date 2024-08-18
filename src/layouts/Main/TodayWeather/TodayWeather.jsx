@@ -8,9 +8,15 @@ import WeatherStateBlock from "./WeatherStateBlock/WeatherStateBlock";
 import OtherInfoBlock from "./OtherInfoBlock/OtherInfoBlock";
 
 import cn from "classnames";
+import { useSelector } from "react-redux";
 
 export default function TodayWeather() {
-  const { dateForTodayWaether, darkTheme } = useContext(weatherContext);
+  const { darkTheme } = useContext(weatherContext);
+
+  const dateForTodayWaether = useSelector(
+    (state) => state.weather.todayWaether
+  );
+
   const {
     temp,
     feelsLike,

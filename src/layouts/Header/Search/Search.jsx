@@ -1,37 +1,47 @@
 import classes from "./Search.module.scss";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { weatherContext } from "../../../App";
 import { TbWorldSearch } from "react-icons/tb";
 import cn from "classnames";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  fetchSearchCitys,
+  setCityName,
+  setQuery,
+} from "../../../store/searchSlice";
 
 export default function Search() {
-  const { darkTheme, setCityName, setCitysNames, citysNames, setQuery } =
-    useContext(weatherContext);
+  const { darkTheme } = useContext(weatherContext);
+
+  const dispatch = useDispatch();
+
+  const citysNames = useSelector((state) => state.search.citysNames);
+  const query = useSelector((state) => state.search.query);
 
   const [searchText, setSearchText] = useState("");
 
+  // nominatim API request
+  useEffect(() => {
+    dispatch(fetchSearchCitys(query));
+  }, [query]);
+
   const handleClickSearch = (e) => {
-    setCityName(searchText.trim());
+    dispatch(setCityName(searchText.trim()));
     setSearchText("");
   };
 
   const handleClickCity = (city) => {
-    setCityName(city);
+    dispatch(setCityName(city));
     setSearchText("");
   };
 
   const handleChange = (e) => {
     const value = e.target.value;
-    setSearchText(value);
-    setQuery(value.trim());
-    if (value.length < 1) {
-      setCitysNames([]);
-    }
-  };
 
-  function checkSearchCitys() {
-    return citysNames.length > 0 && searchText ? true : false;
-  }
+    setSearchText(value);
+
+    dispatch(setQuery(value.trim()));
+  };
 
   return (
     <div className={classes.wrapper}>
@@ -46,7 +56,7 @@ export default function Search() {
       />
 
       <button
-        disabled={!searchText ? true : false}
+        disabled={!searchText}
         className={cn(classes.search, {
           [classes.search_dark]: darkTheme,
         })}
@@ -54,7 +64,7 @@ export default function Search() {
         <TbWorldSearch onClick={handleClickSearch} size={40} />
       </button>
 
-      {checkSearchCitys() && (
+      {citysNames.length > 0 && searchText && (
         <div className={classes.searchData}>
           {citysNames.map((city, index) => (
             <h3

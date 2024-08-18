@@ -102,11 +102,6 @@ export function formatHourlyForecastDate(data) {
   return formatedTodayWeatherdate;
 }
 
-// Format search request
-export function formatSearchRequest(string) {
-  return string;
-}
-
 //? Helpers
 function setWeatherState(clouds = 0, rain = false) {
   let weatherState;
